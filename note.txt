@@ -1,0 +1,6 @@
+scrapy crawl gilbert > output.json
+https://www.wikiart.org/en/gilbert-stuart/the-skater-portrait-of-william-grant-1782s
+
+cd wikiart
+scrapy shell
+fetch('https://www.wikiart.org/en/gilbert-stuart/the-skater-portrait-of-william-grant-1782')
