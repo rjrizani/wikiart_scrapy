@@ -28,6 +28,11 @@ This project is a web scraping tool built with Python and Scrapy to collect data
   scrapy crawl gilbert
 ```
 
+5. commant to get output csv:
+```bash
+scrapy crawl gilbert -o output2.csv
+```
+
 ##Contributing
 Contributions are welcome! Feel free to open issues or submit pull requests to enhance this project.
 License

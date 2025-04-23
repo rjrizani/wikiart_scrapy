@@ -42,6 +42,11 @@ class GilbertSpider(CrawlSpider):
                 )
 
 
+    def __init__(self, *args, **kwargs):
+        super(GilbertSpider, self).__init__(*args, **kwargs)
+        self.seen_titles = set()
+
+
     def parse_item(self, response):
 
         title = response.xpath("/html[1]/body[1]/div[2]/div[1]/section[1]/main[1]/div[2]/article[1]/h3[1]/text()").get()
@@ -52,9 +57,16 @@ class GilbertSpider(CrawlSpider):
         image_urls =  response.xpath("//main[1]/div[2]/aside[1]/div[1]/img[1]/@src").get()
         dimensions = response.xpath("//li[s[@class='title' and text()='Dimensions:']]/text()").getall()
         scraped_at = datetime.datetime.now().strftime("%d %B %Y")
+       
+        if not title:
+            return
+        
+        if title in self.seen_titles:
+            return
 
-        if title is not None or title != "":
-             yield {
+        self.seen_titles.add(title)
+
+        yield {
             "title": title,
             "date": date,
             "media": media,
@@ -63,8 +75,6 @@ class GilbertSpider(CrawlSpider):
             "image_urls": image_urls,
             "dimensions": dimensions,
             "scraped_at": scraped_at,
-             }
-        else:
-           pass
+        }
 
        
